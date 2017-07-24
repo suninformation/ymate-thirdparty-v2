@@ -15,6 +15,7 @@
 
     <modules>
         <module>ymate-thirdparty-core</module>
+        <module>ymate-thirdparty-expressage</module>
     </modules>
 
     <properties>
