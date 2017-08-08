@@ -47,15 +47,15 @@ public class QCloudSmsService extends AbstractThirdpartyService implements IQClo
         return new AbstractSmsSender() {
 
             private String __doSignature(String randomStr, int timeUTC) {
-                String _tos = __tos.remove(0).getMobile();
+                StringBuilder _tos = new StringBuilder();
                 for (To _item : __tos) {
-                    _tos += "," + _item.getMobile();
+                    _tos.append(_item.getMobile()).append(",");
                 }
                 // sha256(appkey=$appkey&random=$random&time=$time&mobile=$mobile)
                 String _signStr = "appkey=" + getServiceKey() +
                         "&random=" + randomStr +
                         "&time=" + timeUTC +
-                        "&mobile=" + _tos;
+                        "&mobile=" + StringUtils.substringBeforeLast(_tos.toString(), ",");
                 return DigestUtils.sha256Hex(_signStr);
             }
 
